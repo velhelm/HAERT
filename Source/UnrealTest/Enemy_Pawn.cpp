@@ -20,14 +20,7 @@ void AEnemy_Pawn::BeginPlay()
 }
 
 
-// Called to bind functionality to input
-void AEnemy_Pawn::SetupPlayerInputComponent(class UInputComponent* InputComponent)
-{
-	Super::SetupPlayerInputComponent(InputComponent);
-
-}
-
-void AEnemy_Pawn::void StruckByRaycast(int Damage, FVector RelativeHitLocation = FVector(0, 0, 0))
+void AEnemy_Pawn::StruckByRaycast(int32 Damage, FVector RelativeHitLocation)
 {
 	_health -= Damage;
 	if (_health <= 0)
@@ -36,7 +29,7 @@ void AEnemy_Pawn::void StruckByRaycast(int Damage, FVector RelativeHitLocation =
 	}
 }
 
-void AEnemy_Pawn::void Kill()
+void AEnemy_Pawn::Kill()
 {
 	this->Destroy();
 }

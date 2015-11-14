@@ -20,6 +20,14 @@ enum class EStrafeState : uint8
 	StrafeRight	UMETA(DisplayName = "StrafeRight")
 };
 
+UENUM(BlueprintType)
+enum class EWeapons : uint8
+{
+	Minigun		UMETA(DisplayName = "Minigun"),
+	FlameThrower	UMETA(DisplayName = "FlameThrower")
+};
+
+
 UCLASS()
 class UNREALTEST_API AHAERT_Pawn : public ACharacter
 {
@@ -71,7 +79,10 @@ public:
 		bool bIsShootingSecondary;
 	UPROPERTY(VisibleAnywhere, BlueprintReadonly, Category = "Strafing")
 		EStrafeState CurrentStrafeState;
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attacks")
+		EWeapons CurrentPrimaryWeapon;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attacks")
+		EWeapons CurrentSecondaryWeapon;
 protected:
 
 	// Called to bind functionality to input

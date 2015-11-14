@@ -18,15 +18,15 @@ public:
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Damage")
-		void StruckByRaycast(int Damage, FVector RelativeHitLocation = FVector(0, 0, 0));
+		void StruckByRaycast(int32 Damage, FVector RelativeHitLocation = FVector(0, 0, 0));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health", meta = (AllowPrivateAccess = "true"))
-		int startingHealth;
+		int32 startingHealth;
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Damage")
 		void Kill();
 private:
-	int _health;
+	int32 _health;
 	
 	
 };

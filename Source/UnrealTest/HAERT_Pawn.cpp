@@ -33,6 +33,15 @@ AHAERT_Pawn::AHAERT_Pawn()
 	FollowCamera->AttachTo(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+
+	//Create skeletal meshes & armatures
+	UpperMeshArmature = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("UpperMeshArmature"));
+	UpperMeshArmature->AttachTo(Mesh);
+	UpperMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("UpperMesh"));
+	UpperMesh->AttachTo(UpperMeshArmature);
+	LowerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("LowerMesh"));
+	LowerMesh->AttachTo(Mesh);
+
  	// No need for ticks
 	PrimaryActorTick.bCanEverTick = false;
 
@@ -75,9 +84,9 @@ void AHAERT_Pawn::SetupPlayerInputComponent(class UInputComponent* InputComponen
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
 	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
-	InputComponent->BindAxis("LookRight", this, &APawn::AddControllerYawInput);
+	InputComponent->BindAxis("LookRight", this, &AHAERT_Pawn::LookRight);
 	InputComponent->BindAxis("LookRightRate", this, &AHAERT_Pawn::LookRightAtRate);
-	InputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
+	InputComponent->BindAxis("LookUp", this, &AHAERT_Pawn::LookUp);
 	InputComponent->BindAxis("LookUpRate", this, &AHAERT_Pawn::LookUpAtRate);
 
 	InputComponent->BindAction("Transform", IE_Pressed, this, &AHAERT_Pawn::SetTransformModeActionBind);
@@ -145,13 +154,36 @@ void AHAERT_Pawn::LookRightAtRate(float Rate)
 {
 	//calculate delta for this frame from the rate information
 	AddControllerYawInput(Rate * BaseLookRightRate * GetWorld()->GetDeltaSeconds());
+	FRotator rot = Controller->GetControlRotation();
+	rot += FRotator(0, -90, 0);
+	rot.Roll = 0.0f;
+	rot.Pitch = 0.0f;
+	UpperMeshArmature->SetWorldRotation(rot);
 }
 
 void AHAERT_Pawn::LookUpAtRate(float Rate)
 {
 	//calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+	//UpperMeshArmature->SetWorldRotation(Controller->GetControlRotation());
 }
+
+
+void AHAERT_Pawn::LookUp(float Value)
+{
+	AddControllerPitchInput(Value);
+	//UpperMeshArmature->SetWorldRotation(Controller->GetControlRotation());
+}
+void AHAERT_Pawn::LookRight(float Value)
+{
+	AddControllerYawInput(Value);
+	FRotator rot = Controller->GetControlRotation();
+	rot += FRotator(0, -90, 0);
+	rot.Roll = 0.0f;
+	rot.Pitch = 0.0f;
+	UpperMeshArmature->SetWorldRotation(rot);
+}
+
 
 //Transform
 void AHAERT_Pawn::SetTransformModeActionBind()
@@ -201,6 +233,26 @@ void AHAERT_Pawn::FireSecondary()
 
 	default:
 		break;
+	}
+}
+
+void AHAERT_Pawn::FireWeapon(EWeapons Weapon)
+{
+	FVector Start = this->GetActorLocation();
+	FVector End = this->GetActorForwardVector() * 5000.0f;
+
+	FCollisionQueryParams RV_TraceParams = FCollisionQueryParams(FName(TEXT("RV_Trace")), true, this);
+
+	switch (Weapon)
+	{
+		case EWeapons::Minigun:
+			FireMinigun();
+			break;
+		case EWeapons::FlameThrower:
+			FireFlamethrower();
+			break;
+		default:
+			break;
 	}
 }
 

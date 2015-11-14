@@ -7,8 +7,8 @@
 // Sets default values
 AEnemy_Pawn::AEnemy_Pawn()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
 
 }
 
@@ -16,20 +16,8 @@ AEnemy_Pawn::AEnemy_Pawn()
 void AEnemy_Pawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 
-void AEnemy_Pawn::StruckByRaycast(int32 Damage, FVector RelativeHitLocation)
-{
-	_health -= Damage;
-	if (_health <= 0)
-	{
-		Kill();
-	}
-}
 
-void AEnemy_Pawn::Kill()
-{
-	this->Destroy();
-}

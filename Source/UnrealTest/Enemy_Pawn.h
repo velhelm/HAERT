@@ -5,7 +5,7 @@
 #include "GameFramework/Pawn.h"
 #include "Enemy_Pawn.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable)
 class UNREALTEST_API AEnemy_Pawn : public APawn
 {
 	GENERATED_BODY()
@@ -17,16 +17,17 @@ public:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UFUNCTION(BlueprintNativeEvent, Category = "Damage")
+	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
 		void StruckByRaycast(int32 Damage, FVector RelativeHitLocation = FVector(0, 0, 0));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health", meta = (AllowPrivateAccess = "true"))
 		int32 startingHealth;
 
-	UFUNCTION(BlueprintNativeEvent, Category = "Damage")
-		void Kill();
-private:
-	int32 _health;
-	
-	
+	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
+		void KillMe();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health", meta = (AllowPrivateAccess = "true"))
+	int32 Health;
+
+
 };

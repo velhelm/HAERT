@@ -178,6 +178,7 @@ void AHAERT_Pawn::LookRight(float Value)
 {
 	AddControllerYawInput(Value);
 	FRotator rot = Controller->GetControlRotation();
+	//TODO: FIX when the offset gets fixed
 	rot += FRotator(0, -90, 0);
 	rot.Roll = 0.0f;
 	rot.Pitch = 0.0f;

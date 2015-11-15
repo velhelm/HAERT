@@ -86,8 +86,15 @@ public:
 		EWeapons CurrentSecondaryWeapon;
 
 
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	UFUNCTION(BlueprintCallable, Category = "Attacks")
 		void ChangeWeapons(EWeapons Primary, EWeapons Secondary);
+
+	UFUNCTION(BlueprintCallable, Category = "Attacks")
+		void GetWeaponDamage(EWeapons Weapon);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attacks")
+		int32 WeaponDamages [3];
+
 protected:
 
 	/** Skeletal Meshes */

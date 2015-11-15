@@ -36,11 +36,11 @@ AHAERT_Pawn::AHAERT_Pawn()
 
 	//Create skeletal meshes & armatures
 	UpperMeshArmature = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("UpperMeshArmature"));
-	UpperMeshArmature->AttachTo(Mesh);
+	UpperMeshArmature->AttachTo(GetMesh());
 	UpperMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("UpperMesh"));
 	UpperMesh->AttachTo(UpperMeshArmature);
 	LowerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("LowerMesh"));
-	LowerMesh->AttachTo(Mesh);
+	LowerMesh->AttachTo(GetMesh());
 
  	// No need for ticks
 	PrimaryActorTick.bCanEverTick = false;
@@ -92,7 +92,9 @@ void AHAERT_Pawn::SetupPlayerInputComponent(class UInputComponent* InputComponen
 	InputComponent->BindAction("Transform", IE_Pressed, this, &AHAERT_Pawn::SetTransformModeActionBind);
 
 	InputComponent->BindAction("FirePrimary", IE_Pressed, this, &AHAERT_Pawn::FirePrimary);
+	InputComponent->BindAction("FirePrimary", IE_Released, this, &AHAERT_Pawn::ReleasePrimary);
 	InputComponent->BindAction("FireSecondary", IE_Pressed, this, &AHAERT_Pawn::FireSecondary);
+	InputComponent->BindAction("FireSecondary", IE_Released, this, &AHAERT_Pawn::ReleaseSecondary);
 }
 
 ///Movement
@@ -203,7 +205,7 @@ void AHAERT_Pawn::SetTransformMode(EPlayerMode NextMode)
 void AHAERT_Pawn::FirePrimary()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Primary Fired"));
-
+	bIsShootingPrimary = true;
 	switch (_CurrentMode)
 	{
 	case EPlayerMode::CarMode:
@@ -222,6 +224,7 @@ void AHAERT_Pawn::FirePrimary()
 void AHAERT_Pawn::FireSecondary()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Secondary Fired"));
+	bIsShootingSecondary = true;
 	switch (_CurrentMode)
 	{
 	case EPlayerMode::CarMode:
@@ -362,9 +365,11 @@ void AHAERT_Pawn::StrafeMech(float Value)
 
 void AHAERT_Pawn::FirePrimaryMech()
 {
+	FireWeapon(CurrentPrimaryWeapon);
 }
 
 void AHAERT_Pawn::FireSecondaryMech()
 {
+	FireWeapon(CurrentSecondaryWeapon);
 }
 

@@ -79,9 +79,9 @@ public:
 		bool bIsShootingSecondary;
 	UPROPERTY(VisibleAnywhere, BlueprintReadonly, Category = "Strafing")
 		EStrafeState CurrentStrafeState;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attacks")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attacks")
 		EWeapons CurrentPrimaryWeapon;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attacks")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attacks")
 		EWeapons CurrentSecondaryWeapon;
 protected:
 
@@ -127,10 +127,14 @@ protected:
 	void SetTransformModeActionBind();
 	void SetTransformMode(EPlayerMode NextMode);
 
+	UFUNCTION(BlueprintCallable, Category = "Attacking")
 	void FirePrimary();
+	FORCEINLINE void ReleasePrimary() { bIsShootingPrimary = false; }
+	UFUNCTION(BlueprintCallable, Category = "Attacking")
 	void FireSecondary();
+	FORCEINLINE void ReleaseSecondary() { bIsShootingSecondary = false; }
 
-	void FireWeapon(EWeapons);
+	void FireWeapon(EWeapons Weapons);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Transform")
 		void FireMinigun();

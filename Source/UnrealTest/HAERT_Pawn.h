@@ -83,6 +83,10 @@ public:
 		EWeapons CurrentPrimaryWeapon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attacks")
 		EWeapons CurrentSecondaryWeapon;
+
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+		void ChangeWeapons(EWeapons Primary, EWeapons Secondary);
 protected:
 
 	/** Skeletal Meshes */
@@ -136,10 +140,10 @@ protected:
 
 	void FireWeapon(EWeapons Weapons);
 
-	UFUNCTION(BlueprintImplementableEvent, Category = "Transform")
+	UFUNCTION(BlueprintImplementableEvent, Category = "Attacking")
 		void FireMinigun();
 
-	UFUNCTION(BlueprintImplementableEvent, Category = "Transform")
+	UFUNCTION(BlueprintImplementableEvent, Category = "Attacking")
 		void FireFlamethrower();
 
 

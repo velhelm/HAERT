@@ -260,6 +260,12 @@ void AHAERT_Pawn::FireWeapon(EWeapons Weapon)
 	}
 }
 
+void AHAERT_Pawn::ChangeWeapons(EWeapons Primary, EWeapons Secondary)
+{
+	CurrentPrimaryWeapon = Primary;
+	CurrentSecondaryWeapon = Secondary;
+}
+
 
 ///
 ///Car Mode

@@ -34,13 +34,13 @@ AHAERT_Pawn::AHAERT_Pawn()
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
 
-	//Create skeletal meshes & armatures
-	UpperMeshArmature = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("UpperMeshArmature"));
-	UpperMeshArmature->AttachTo(GetMesh());
-	UpperMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("UpperMesh"));
-	UpperMesh->AttachTo(UpperMeshArmature);
-	LowerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("LowerMesh"));
-	LowerMesh->AttachTo(GetMesh());
+	////Create skeletal meshes & armatures
+	//UpperMeshArmature = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("UpperMeshArmature"));
+	//UpperMeshArmature->AttachTo(GetMesh());
+	//UpperMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("UpperMesh"));
+	//UpperMesh->AttachTo(UpperMeshArmature);
+	//LowerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("LowerMesh"));
+	//LowerMesh->AttachTo(GetMesh());
 
  	// No need for ticks
 	PrimaryActorTick.bCanEverTick = false;
@@ -156,11 +156,11 @@ void AHAERT_Pawn::LookRightAtRate(float Rate)
 {
 	//calculate delta for this frame from the rate information
 	AddControllerYawInput(Rate * BaseLookRightRate * GetWorld()->GetDeltaSeconds());
-	FRotator rot = Controller->GetControlRotation();
-	rot += FRotator(0, -90, 0);
-	rot.Roll = 0.0f;
-	rot.Pitch = 0.0f;
-	UpperMeshArmature->SetWorldRotation(rot);
+	//FRotator rot = Controller->GetControlRotation();
+	//rot += FRotator(0, -90, 0);
+	//rot.Roll = 0.0f;
+	//rot.Pitch = 0.0f;
+	//UpperMeshArmature->SetWorldRotation(rot);
 }
 
 void AHAERT_Pawn::LookUpAtRate(float Rate)
@@ -179,12 +179,13 @@ void AHAERT_Pawn::LookUp(float Value)
 void AHAERT_Pawn::LookRight(float Value)
 {
 	AddControllerYawInput(Value);
-	FRotator rot = Controller->GetControlRotation();
+	//FRotator rot = Controller->GetControlRotation();
 	//TODO: FIX when the offset gets fixed
-	rot += FRotator(0, -90, 0);
-	rot.Roll = 0.0f;
-	rot.Pitch = 0.0f;
-	UpperMeshArmature->SetWorldRotation(rot);
+//	rot += FRotator(0, -90, 0);
+//	rot.Roll = 0.0f;
+//	rot.Pitch = 0.0f;
+//	UpperMeshArmature->SetWorldRotation(rot);
+//
 }
 
 

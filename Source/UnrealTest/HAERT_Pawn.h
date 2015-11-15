@@ -97,14 +97,14 @@ public:
 
 protected:
 
-	/** Skeletal Meshes */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SkeletalMeshes, meta = (AllowPrivateAccess = "true"))
-		USkeletalMeshComponent* UpperMesh;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SkeletalMeshes, meta = (AllowPrivateAccess = "true"))
-		USkeletalMeshComponent* LowerMesh;
+	///** Skeletal Meshes */
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SkeletalMeshes, meta = (AllowPrivateAccess = "true"))
+	//	USkeletalMeshComponent* UpperMesh;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SkeletalMeshes, meta = (AllowPrivateAccess = "true"))
+	//	USkeletalMeshComponent* LowerMesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SkeletalMeshes, meta = (AllowPrivateAccess = "true"))
-		UStaticMeshComponent* UpperMeshArmature;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SkeletalMeshes, meta = (AllowPrivateAccess = "true"))
+	//	UStaticMeshComponent* UpperMeshArmature;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;

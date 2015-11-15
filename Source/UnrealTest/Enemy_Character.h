@@ -16,12 +16,6 @@ public:
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
-	// Called every frame
-	virtual void Tick( float DeltaSeconds ) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
 		void StruckByRaycast(int32 Damage, FVector RelativeHitLocation = FVector(0, 0, 0));
@@ -33,6 +27,6 @@ public:
 		void KillMe();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health", meta = (AllowPrivateAccess = "true"))
-		int32 Health;
+		int32 currentHealth;
 	
 };

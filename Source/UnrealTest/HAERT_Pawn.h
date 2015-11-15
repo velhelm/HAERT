@@ -24,7 +24,8 @@ UENUM(BlueprintType)
 enum class EWeapons : uint8
 {
 	Minigun		UMETA(DisplayName = "Minigun"),
-	FlameThrower	UMETA(DisplayName = "FlameThrower")
+	FlameThrower	UMETA(DisplayName = "FlameThrower"),
+	Grenade		UMETA(DisplayName = "Grenade")
 };
 
 
@@ -145,6 +146,9 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Attacking")
 		void FireFlamethrower();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Attacking")
+		void FireGrenade();
 
 
 	///Car Mode

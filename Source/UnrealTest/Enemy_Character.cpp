@@ -8,7 +8,9 @@
 AEnemy_Character::AEnemy_Character()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
+
+	currentHealth = startingHealth;
 
 }
 
@@ -17,19 +19,5 @@ void AEnemy_Character::BeginPlay()
 {
 	Super::BeginPlay();
 	
-}
-
-// Called every frame
-void AEnemy_Character::Tick( float DeltaTime )
-{
-	Super::Tick( DeltaTime );
-
-}
-
-// Called to bind functionality to input
-void AEnemy_Character::SetupPlayerInputComponent(class UInputComponent* InputComponent)
-{
-	Super::SetupPlayerInputComponent(InputComponent);
-
 }
 

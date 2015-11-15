@@ -255,6 +255,8 @@ void AHAERT_Pawn::FireWeapon(EWeapons Weapon)
 		case EWeapons::FlameThrower:
 			FireFlamethrower();
 			break;
+		case EWeapons::Grenade:
+			FireGrenade();
 		default:
 			break;
 	}
